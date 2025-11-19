@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Georgios Giannakopoulos — Portfolio</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="Georgios Giannakopoulos — Network & Telecommunications Engineer"
+    />
+    <meta name="author" content="Georgios Giannakopoulos" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-ud8YdG6b3..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap CSS (optional, but matches Shahizan’s layout idea) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom Theme Styles (simplified from Shahizan-style layout) -->
+    <style>
+      :root {
+        --text: #111827;
+        --muted: #475569;
+        --border: #e5e7eb;
+        --bg-light: #f9fafb;
+        --accent: #2563eb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial,
+          sans-serif;
+        color: var(--text);
+        line-height: 1.6;
+        background: #fff;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /* Main layout: LEFT sidebar + RIGHT main content */
+      .container-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      /* Sidebar */
+      .header {
+        background: #0f172a;
+        color: #e5e7eb;
+        border-radius: 16px;
+        padding: 24px 16px;
+        position: sticky;
+        top: 16px;
+        max-height: calc(100vh - 32px);
+        overflow-y: auto;
+      }
+
+      .blog-name a {
+        color: #f9fafb;
+        font-weight: 700;
+        font-size: 22px;
+      }
+
+      .profile-image {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 999px;
+        border: 3px solid #1d4ed8;
+      }
+
+      .bio {
+        font-size: 14px;
+        color: #cbd5f5;
+      }
+
+      .social-list i {
+        font-size: 18px;
+      }
+
+      .navbar-nav .nav-link {
+        color: #e5e7eb;
+        font-size: 14px;
+        padding: 6px 0;
+      }
+
+      .navbar-nav .nav-link i {
+        width: 20px;
+      }
+
+      .navbar-nav .nav-link.active,
+      .navbar-nav .nav-link:hover {
+        color: #bfdbfe;
+      }
+
+      hr {
+        border-color: rgba(148, 163, 184, 0.7);
+      }
+
+      /* Dark mode toggle (visual only – JS hook later if you want) */
+      .dark-mode-toggle {
+        margin-top: 16px;
+      }
+
+      .toggle-name {
+        font-size: 14px;
+      }
+
+      .toggle {
+        display: none;
+      }
+
+      .toggle-btn {
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        background: #1e293b;
+        display: inline-flex;
+        align-items: center;
+        padding: 4px;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .toggle-btn::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: #e5e7eb;
+        transition: transform 0.2s ease;
+      }
+
+      .toggle:checked + .toggle-btn::after {
+        transform: translateX(24px);
+      }
+
+      /* Main content */
+      .main-wrapper {
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        background: #fff;
+        overflow: hidden;
+      }
+
+      .section {
+        padding: 24px 24px 8px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .section:last-of-type {
+        border-bottom: none;
+        padding-bottom: 24px;
+      }
+
+      .section-title {
+        font-size: 22px;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+
+      .section-subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+
+      .tagline {
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      footer.footer {
+        font-size: 13px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+        padding-top: 16px;
+        margin-top: 8px;
+      }
+
+      .badge-pill {
+        border-radius: 999px;
+      }
+
+      /* Simple cards, re-usable */
+      .card-simple {
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .card-simple h3 {
+        margin-top: 0;
+        font-size: 16px;
+      }
+
+      .card-simple p {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .header {
+          position: static;
+          max-height: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-page">
+      <div class="layout">
+        <!-- ========== SIDEBAR ========== -->
+        <header class="header text-center">
+          <div class="force-overflow">
+            <h1 class="blog-name mb-3">
+              <a class="no-text-decoration" href="#top">
+                Georgios Giannakopoulos
+              </a>
+            </h1>
+
+            <div class="profile-section pt-2">
+              <!-- Replace src with your own profile image path -->
+              <img
+                class="profile-image mb-3 mx-auto d-block"
+                src="assets/images/profile-georgios.jpg"
+                alt="Profile photo of Georgios Giannakopoulos"
+              />
+
+              <div class="bio mb-3">
+                Chartered Network & Telecommunications Engineer (CEng, SMIEEE)
+                specialising in RF, Networks, and IT strategy. This is my
+                personal academic and professional portfolio.
+              </div>
+
+              <ul class="social-list list-inline py-2 mx-auto">
+                <!-- Add/update your real links -->
+                <li class="list-inline-item">
+                  <a href="https://scholar.google.com/" target="_blank"
+                    ><i class="ai ai-google-scholar"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://orcid.org/" target="_blank"
+                    ><i class="ai ai-orcid"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noopener"
+                    ><i class="fab fa-linkedin-in fa-fw"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://github.com/" target="_blank"
+                    ><i class="fab fa-github-alt fa-fw"></i
+                  ></a>
+                </li>
+              </ul>
+
+              <hr />
+
+              <!-- NAVIGATION MENU – from your Weebly site -->
+              <nav class="navbar navbar-dark flex-column text-start">
+                <ul class="navbar-nav flex-column w-100">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#about-me">
+                      <i class="fas fa-user fa-fw me-2"></i>About Me
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#resume">
+                      <i class="fas fa-file-lines fa-fw me-2"></i>Resume
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#awards">
+                      <i class="fas fa-trophy fa-fw me-2"></i>Awards
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#career">
+                      <i class="fas fa-network-wired fa-fw me-2"></i>My Career
+                      as a Network Engineer
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#research-interests">
+                      <i class="fas fa-flask fa-fw me-2"></i>Research Interests
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#publications">
+                      <i class="fas fa-book-open fa-fw me-2"></i>Publications
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#links">
+                      <i class="fas fa-link fa-fw me-2"></i>Links
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#engineers-explained">
+                      <i class="fas fa-chalkboard-teacher fa-fw me-2"></i
+                      >Engineers Explained
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="#contact">
+                      <i class="fas fa-address-card fa-fw me-2"></i>Contact
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+
+              <!-- Dark Mode toggle placeholder -->
+              <div class="dark-mode-toggle text-center w-100">
+                <hr class="mb-3" />
+                <h4 class="toggle-name mb-2">
+                  <i class="fas fa-adjust me-1"></i>Dark Mode
+                </h4>
+
+                <input class="toggle" id="darkmode" type="checkbox" />
+                <label class="toggle-btn mx-auto mb-0" for="darkmode"></label>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <div class="main-wrapper" id="top">
+          <!-- About Me -->
+          <section id="about-me" class="section about-me-section">
+            <div class="container-fluid">
+              <h2 class="section-title">About Me</h2>
+              <p class="tagline mb-2">
+                Network & Telecommunications Engineer · RF · IT Strategy ·
+                Research & Education
+              </p>
+              <p>
+                Hello, my name is Georgios Giannakopoulos, originally from
+                Athens, Greece and based in the Netherlands. I am a Chartered
+                Engineer (CEng) with extensive experience in communications,
+                RF, and IT. Here you can briefly mirror the text you currently
+                have on your Weebly “About Me” page and refine it over time.
+              </p>
+            </div>
+          </section>
+
+          <!-- Resume -->
+          <section id="resume" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Resume</h2>
+              <p class="section-subtitle">
+                Snapshot of my professional experience, education, and skills.
+              </p>
+
+              <!-- Example structure, you can expand -->
+              <div class="row">
+                <div class="col-md-6">
+                  <h3>Experience</h3>
+                  <div class="card-simple">
+                    <h3>Principal Network Engineer</h3>
+                    <p class="mb-1"><strong>Company / Organisation</strong></p>
+                    <p class="mb-1"><em>Years – Present</em></p>
+                    <p>
+                      Short summary of your key responsibilities, technologies,
+                      and achievements.
+                    </p>
+                  </div>
+                  <!-- Add more experience cards -->
+                </div>
+
+                <div class="col-md-6">
+                  <h3>Education</h3>
+                  <div class="card-simple">
+                    <h3>MSc Communications Engineering and Signal Processing</h3>
+                    <p class="mb-1"><strong>University</strong></p>
+                    <p><em>Year – Year</em></p>
+                  </div>
+                  <!-- Add more education items -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Awards -->
+          <section id="awards" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Awards</h2>
+              <p class="section-subtitle">
+                Selected honours, recognitions, and professional distinctions.
+              </p>
+
+              <!-- Example award list -->
+              <div class="card-simple">
+                <h3>Senior Member, IEEE</h3>
+                <p><em>Year</em></p>
+                <p>
+                  Short description or context (e.g., fields of contribution).
+                </p>
+              </div>
+
+              <div class="card-simple">
+                <h3>Chartered Engineer (CEng), IET</h3>
+                <p><em>2022</em></p>
+                <p>Brief description or highlight of the achievement.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- My Career as a Network Engineer -->
+          <section id="career" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">
+                My Career as a Network Engineer
+              </h2>
+              <p class="section-subtitle">
+                Timeline and focus areas of my professional journey.
+              </p>
+
+              <p>
+                Here you can describe your career path: from early roles in
+                telecoms and networking, through RF engineering, to your
+                current responsibilities. You can convert your Weebly content
+                into a narrative or a timeline.
+              </p>
+            </div>
+          </section>
+
+          <!-- Research Interests -->
+          <section id="research-interests" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Research Interests</h2>
+              <p class="section-subtitle">
+                Current topics I am exploring in RF, antennas, networks, and
+                intelligent automation.
+              </p>
+
+              <ul>
+                <li>MIMO-enabled phased array antennas and UL-MIMO systems</li>
+                <li>5G/6G networks for public safety and critical communications</li>
+                <li>Intelligent automation, IT strategy, and systems thinking</li>
+                <li>Ethical AI integration and secure IVR systems</li>
+                <!-- add/adjust freely -->
+              </ul>
+            </div>
+          </section>
+
+          <!-- Publications -->
+          <section id="publications" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Publications</h2>
+              <p class="section-subtitle">
+                Selected journal articles, conference papers, and book projects.
+              </p>
+
+              <!-- Example publication block -->
+              <div class="card-simple">
+                <h3>
+                  Designing FIR and IIR Digital Filters for Low-Power Modems
+                  Using SIMULINK and VHDL
+                </h3>
+                <p class="mb-1"><em>Journal / Conference, Year</em></p>
+                <p class="mb-1">
+                  Short 1–2 sentence description of the paper topic.
+                </p>
+                <p class="mb-0">
+                  <a href="#" target="_blank">View paper</a> ·
+                  <a href="#" target="_blank">Google Scholar</a>
+                </p>
+              </div>
+
+              <!-- You can later generate this section automatically from BibTeX -->
+            </div>
+          </section>
+
+          <!-- Links -->
+          <section id="links" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Links</h2>
+              <p class="section-subtitle">
+                External profiles and resources.
+              </p>
+
+              <ul>
+                <li>
+                  <a href="https://scholar.google.com/" target="_blank">
+                    Google Scholar
+                  </a>
+                </li>
+                <li>
+                  <a href="https://orcid.org/" target="_blank">ORCID</a>
+                </li>
+                <li>
+                  <a href="https://www.researchgate.net/" target="_blank">
+                    ResearchGate
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/" target="_blank">
+                    LinkedIn
+                  </a>
+                </li>
+                <!-- Add more as needed -->
+              </ul>
+            </div>
+          </section>
+
+          <!-- Engineers Explained -->
+          <section id="engineers-explained" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Engineers Explained</h2>
+              <p class="section-subtitle">
+                Articles, posts, or explanations aimed at students and
+                non-specialists.
+              </p>
+
+              <p>
+                Here you can migrate the content from your “Engineers
+                Explained” Weebly page: short essays on engineering roles,
+                pathways to CEng, or guidance for students and early-career
+                professionals.
+              </p>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section id="contact" class="section">
+            <div class="container-fluid">
+              <h2 class="section-title">Contact</h2>
+              <p class="section-subtitle">
+                How to reach me for collaborations, mentoring, or speaking
+                engagements.
+              </p>
+
+              <p class="mb-1">
+                <strong>Email:</strong>
+                <a href="mailto:your.email@example.com"
+                  >your.email@example.com</a
+                >
+              </p>
+              <p class="mb-1">
+                <strong>LinkedIn:</strong>
+                <a href="https://www.linkedin.com/" target="_blank"
+                  >linkedin.com/in/your-profile</a
+                >
+              </p>
+              <!-- You can also embed a simple contact form here later -->
+            </div>
+          </section>
+
+          <!-- Footer -->
+          <footer class="footer text-center py-3">
+            <small class="copyright">
+              ©
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              Georgios Giannakopoulos — All rights reserved.
+            </small>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS (Bootstrap + optional) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Optional: smooth scroll for nav links -->
+    <script>
+      document
+        .querySelectorAll('.navbar-nav .nav-link[href^="#"]')
+        .forEach((link) => {
+          link.addEventListener("click", function (e) {
+            const targetId = this.getAttribute("href").slice(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: "smooth", block: "start" });
+              document
+                .querySelectorAll(".navbar-nav .nav-link")
+                .forEach((l) => l.classList.remove("active"));
+              this.classList.add("active");
+            }
+          });
+        });
+    </script>
+  </body>
+</html>
